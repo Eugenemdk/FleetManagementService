@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package fleet;
+
+option csharp_namespace = "FleetManagement";
+
+service FleetService {
+  rpc GetVehicle(VehicleQuery) returns (Vehicle);
+  rpc UpdateVehicle(PutVehicleQuery) returns (InfoRequestResponse);
+  rpc AddVehicle(Vehicle) returns (InfoRequestResponse);
+  rpc DeleteVehicle(VehicleQuery) returns (InfoRequestResponse);
+  rpc GetDriver(DriverQuery) returns (Driver);
+  rpc UpdateDriver(PutDriverQuery) returns (InfoRequestResponse);
+  rpc AddDriver(Driver) returns (InfoRequestResponse);
+  rpc DeleteDriver(DriverQuery) returns (InfoRequestResponse);
+  rpc GetRoute(RouteQuery) returns (Route);
+  rpc UpdateRoute(PutRouteQuery) returns (InfoRequestResponse);
+  rpc AddRoute(Route) returns (InfoRequestResponse);
+  rpc DeleteRoute(RouteQuery) returns (InfoRequestResponse);
+  rpc GetWaypoint(WaypointQuery) returns (Waypoint);
+  rpc UpdateWaypoint(PutWaypointQuery) returns (InfoRequestResponse);
+  rpc AddWaypoint(Waypoint) returns (InfoRequestResponse);
+  rpc DeleteWaypoint(WaypointQuery) returns (InfoRequestResponse);
+  rpc GetLocationUpdate(LocationQuery) returns (LocationUpdate);
+  rpc AssignDriver(AssignDriverRequest) returns (AssignDriverRequest);
+  rpc UpdateRouteStatus(PutRouteStatusQuery) returns (RouteStatusUpdate);
+}
+
+
+message Vehicle {
+int32 vehicleId = 1;
+string licensePlate = 2;
+string make = 3;
+string model = 4;
+double latitude = 5;
+double longitude = 6;
+}
+
+message Driver {
+int32 driverId = 1;
+string name = 2;
+string licenseNumber = 3;
+}
+
+message Route {
+int32 routeId = 1;
+repeated Waypoint waypoints = 2;
+}
+
+message Waypoint {
+double latitude = 1;
+double longitude = 2;
+}
+
+message LocationUpdate {
+int32 vehicleId = 1;
+double latitude = 2;
+double longitude = 3;
+}
+
+message AssignDriverRequest {
+int32 vehicleId = 1;
+int32 driverId = 2;
+}
+
+message RouteStatusUpdate {
+int32 routeId = 1;
+string status = 2;
+}
+
+message InfoRequestResponse {
+    string statusMessage = 1;
+    int32 statusCode = 2;
+}
+
+message VehicleQuery {
+    int32 vehicleId = 1;
+}
+
+message PutVehicleQuery {
+    Vehicle vehicle = 1;
+    int32 vehicleId = 2;
+}
+
+message DriverQuery {
+    int32 driverId = 1;
+}
+
+message PutDriverQuery {
+    Driver driver = 1;
+    int32 driverId = 2;
+}
+
+message RouteQuery {
+    int32 routeId = 1;
+}
+
+message PutRouteQuery {
+    Route route = 1;
+    int32 routeId = 2;
+}
+
+message WaypointQuery {
+    int32 waypointId = 1;
+} 
+
+message PutWaypointQuery {
+    Waypoint waypoint = 1;
+    int32 waypointId = 2;
+}
+
+message LocationQuery {
+    int32 locationId = 1;
+}
+
+message PutRouteStatusQuery {
+    int32 routeId = 1;
+    string status = 2;
+}
